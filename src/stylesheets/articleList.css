@@ -1,0 +1,17 @@
+#articleListContainer {
+    width: 100%;
+}
+
+ul {
+    overflow: wrap;
+    word-break: break-all;
+}
+
+li {
+    width: 50%;
+    overflow: wrap;
+    text-align: start;
+    display: flex;
+    align-items: flex-end;
+}
+

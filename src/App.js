@@ -9,6 +9,10 @@ function App() {
 
   return (
     <div className="App">
+      <h1>a-blog</h1>
+      <nav>
+        
+      </nav>
       <Outlet />
     </div>
   );

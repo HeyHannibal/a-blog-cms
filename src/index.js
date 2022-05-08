@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from "react-dom";
+import { createRoot } from 'react-dom/client';
 import {
   BrowserRouter,
   Routes,
@@ -13,7 +13,9 @@ import ArticleCreate from './components/postarticle'
 import './stylesheets/index.css';
 
 const rootElement = document.getElementById("root");
-render(
+const root = createRoot(rootElement)
+
+root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} >
@@ -25,4 +27,6 @@ render(
       </Route>
     </Routes>
   </BrowserRouter>
-  , rootElement);
+  );
+
+
