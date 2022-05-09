@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import PostComment from './postcomment'
+import useToken from '../useToken'
 
 export default function ArticlePage() {
 
+    const { token } = useToken()
     const { id } = useParams()
     const [article, setArticle] = useState(false)
     const [articleId, setArticleId] = useState(id)
-
+    let navigate = useNavigate()
     useEffect(() => {
+        
+        if(!token) {
+            navigate('/login')
+        }
+        
         fetch(`http://localhost:3001/article/${id}/`)
             .then(result => result.json())
             .then(result => setArticle(result))

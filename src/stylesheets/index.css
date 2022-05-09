@@ -27,3 +27,9 @@ ul{
 .MuiSvgIcon-root {
   color: rgb(233, 218, 187);
 }
+
+nav{
+  display: flex;
+  gap: 1.5rem;
+  text-decoration: underline;
+}

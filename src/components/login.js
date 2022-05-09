@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
+import useToken from '../useToken'
+
 
 export default function PostComment(props) {
+    let navigate = useNavigate()
 
-    
+    const { token, setToken, deleteToken } = useToken()
 
+   
     const [inputUsername, setInputUsername] = useState('')
     const [inputPassword, setInputPassword] = useState('')
+    const [showErr, setShowErr] = useState(false)
 
-    const usernameChange = (event) =>  setInputUsername(event.target.value)
-    const passwordChange = (event) => setInputPassword(event.target.value)
-
-    let navigate = useNavigate()
-    useEffect(() => {
-        if(window.localStorage.getItem('token')) {
-            return navigate('/cms')
-        }
-    })
+    const usernameChange = (event) => setInputUsername(event.target.value)
+    const passwordChange = (event) => setInputPassword(event.target.value)    
     
+
+
 
     async function post(e) {
         e.preventDefault();
         try {
-            let res = await fetch(`http://localhost:3001/cms/login/`, {
+            let res = await fetch(`http://localhost:3001/auth/login/`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -34,17 +34,20 @@ export default function PostComment(props) {
                 }),
             })
             if (res.status === 200) {
-                console.log('200')
                 const response = await res.json()
-                localStorage.setItem('token', response.token)
-                navigate('/cms')
-            } else setInputPassword('Error')
+                setToken(response.token)
+                navigate('/')
+                window.location.reload()
+                setShowErr(false)
+            } else {
+                setShowErr(true)
+            }
         } catch (err) {
             console.log(err)
         }
     }
 
-
+ 
     return (
         <form onSubmit={post}>
             <label htmlFor='username'>
@@ -55,7 +58,8 @@ export default function PostComment(props) {
                 Password
                 <input type='password' name='password' value={inputPassword} onChange={passwordChange}></input>
             </label>
-            <button type='submit'>Post Comment</button>
+            <button type='submit'>Login</button>
+            {showErr ? <p>Incorrect password or username</p> : ''}
         </form>
     )
 }

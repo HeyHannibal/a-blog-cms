@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import uniqid from 'uniqid';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../stylesheets/articleList.css'
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import useToken from '../useToken'
 
 export default function Homepage(props) {
 
+    const { token, setToken, deleteToken } = useToken()
     const [articles, setArticles] = useState(false)
 
-
+    let navigate = useNavigate('/')
     useEffect(() => {
+        if (!token) {
+            navigate('/login')
+        }
         if (!articles) {
             fetch('http://localhost:3001/article')
-            .then(result => result.json())
-            .then(result => setArticles(JSON.parse(result)))
+                .then(result => result.json())
+                .then(result => setArticles(JSON.parse(result)))
         }
     })
 
@@ -22,15 +26,18 @@ export default function Homepage(props) {
 
     db.delete = async (e) => {
         try {
-            let res = await fetch(`http://localhost:3001/cms/article/${e.currentTarget.parentNode.id}/`, {
+            let res = await fetch(`http://localhost:3001/article/${e.currentTarget.parentNode.id}/`, {
                 method: 'DELETE',
                 headers: {
+                    authorization: `bearer ${token}`,
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                }
+                },
             })
             if (res.status === 200) {
                 window.location.reload()
+            } else {
+                navigate('/')
             }
         } catch (err) {
             console.log(err);

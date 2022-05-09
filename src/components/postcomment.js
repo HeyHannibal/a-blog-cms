@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
-export default function PostComment(props) {
-
-    const [inputUsername, setInputUsername] = useState('')
-    const usernameChange = (event) => {
-        console.log(inputUsername)
-        setInputUsername(event.target.value)
-    }
+export default function DeleteComment(props) {
+    
     const [inputCommentBody, setInputCommentBody] = useState('')
-    const commentBodyChange = (event) => {
-        console.log(inputUsername)
-        setInputCommentBody(event.target.value)
-    }
+    const [inputUsername, setInputUsername] = useState('')
+    const usernameChange = (event) => setInputUsername(event.target.value)
+    const commentBodyChange = (event) => setInputCommentBody(event.target.value)
 
-    async function post(e) {
+
+    async function deleteComment(e) {
         e.preventDefault();
 
         try {
             let res = await fetch(`http://localhost:3001/article/${props.articleId}/comment/`, {
-                method: 'POST',
+                method: 'delete',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
@@ -29,8 +24,10 @@ export default function PostComment(props) {
                 }),
             })
             if (res.status === 200) {
-                window.location.reload()      
-                  } else setInputCommentBody('Error')
+                window.location.reload()
+            } else {
+                window.location.reload()
+            }
         } catch (err) {
             console.log(err)
         }
@@ -38,7 +35,7 @@ export default function PostComment(props) {
 
 
     return (
-        <form onSubmit={post}>
+        <form onSubmit={deleteComment}>
             <label htmlFor='username'>
                 Username
                 <input type='text' name='username' value={inputUsername} onChange={usernameChange}></input>
@@ -47,7 +44,7 @@ export default function PostComment(props) {
                 Comment
                 <textarea name='body' value={inputCommentBody} onChange={commentBodyChange}></textarea>
             </label>
-            <button type='submit'>Post Comment</button>
+            <button type='submit'>delete Comment</button>
         </form>
     )
 }
