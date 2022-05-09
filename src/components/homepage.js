@@ -36,8 +36,10 @@ export default function Homepage(props) {
             })
             if (res.status === 200) {
                 window.location.reload()
-            } else {
-                navigate('/')
+            } 
+            if (res.status === 403) {
+                deleteToken()
+                navigate('/login')
             }
         } catch (err) {
             console.log(err);

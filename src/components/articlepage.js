@@ -2,26 +2,45 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import PostComment from './postcomment'
 import useToken from '../useToken'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function ArticlePage() {
 
-    const { token } = useToken()
+    const { token, deleteToken } = useToken()
     const { id } = useParams()
     const [article, setArticle] = useState(false)
     const [articleId, setArticleId] = useState(id)
     let navigate = useNavigate()
     useEffect(() => {
-        
-        if(!token) {
+        if (!token) {
             navigate('/login')
         }
-        
         fetch(`http://localhost:3001/article/${id}/`)
             .then(result => result.json())
             .then(result => setArticle(result))
     }, [articleId])
 
-
+    async function deleteComment(e) {
+        e.preventDefault();
+        try {
+            let res = await fetch(`http://localhost:3001/article/${id}/comment/${e.currentTarget.parentNode.id}`, {
+                method: 'delete',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
+            if (res.status === 200) {
+                window.location.reload()
+            }
+            if (res.status === 403) {
+                deleteToken()
+                navigate('/login')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <div>
@@ -29,11 +48,11 @@ export default function ArticlePage() {
                 <div>
                     <h1>{article.article.title}</h1>
                     <p>{article.article.body}</p>
-                    <PostComment articleId={articleId}/>
                     {article.comments.map(comment =>
-                        <div>
+                        <div id={comment._id}>
                             <h5>{comment.username}</h5>
                             <p>{comment.body}</p>
+                            <DeleteIcon onClick={deleteComment} />
                         </div>
                     )}
                 </div>
