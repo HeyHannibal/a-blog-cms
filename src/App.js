@@ -1,17 +1,19 @@
 import './stylesheets/App.css';
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
-import useToken from './useToken';
+import React from 'react';
 
 function App() {
 
-  const { token, deleteToken } = useToken();
+
 
   let navigate = useNavigate()
 
+
+
+
   function signOut() {
-    deleteToken();
-    navigate('/')
+    localStorage.clear()
+    // navigate('/')
   }
 
   return (
@@ -19,7 +21,7 @@ function App() {
       <h1>a-blog</h1>
       <nav>
         <Link to='/'>Home</Link>
-        {token ?
+        {localStorage.getItem('token') ?
           <a onClick={signOut}>Sign out</a>
           :
           <Link to='login'>Login</Link>

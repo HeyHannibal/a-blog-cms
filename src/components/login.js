@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import useToken from '../useToken'
 
 
 export default function PostComment(props) {
     let navigate = useNavigate()
 
-    const { token, setToken, deleteToken } = useToken()
+    
 
-   
+
     const [inputUsername, setInputUsername] = useState('')
     const [inputPassword, setInputPassword] = useState('')
     const [showErr, setShowErr] = useState(false)
 
     const usernameChange = (event) => setInputUsername(event.target.value)
-    const passwordChange = (event) => setInputPassword(event.target.value)    
-    
+    const passwordChange = (event) => setInputPassword(event.target.value)
+
 
 
 
@@ -35,7 +34,7 @@ export default function PostComment(props) {
             })
             if (res.status === 200) {
                 const response = await res.json()
-                setToken(response.token)
+                localStorage.setItem('token',response.token)
                 navigate('/')
                 window.location.reload()
                 setShowErr(false)
@@ -47,7 +46,7 @@ export default function PostComment(props) {
         }
     }
 
- 
+
     return (
         <form onSubmit={post}>
             <label htmlFor='username'>

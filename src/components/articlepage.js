@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import PostComment from './postcomment'
-import useToken from '../useToken'
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function ArticlePage() {
 
-    const { token, deleteToken } = useToken()
     const { id } = useParams()
     const [article, setArticle] = useState(false)
     const [articleId, setArticleId] = useState(id)
+
+
+
     let navigate = useNavigate()
     useEffect(() => {
-        if (!token) {
+        if (!localStorage.getItem('token')) {
             navigate('/login')
         }
         fetch(`http://localhost:3001/article/${id}/`)
@@ -34,7 +34,7 @@ export default function ArticlePage() {
                 window.location.reload()
             }
             if (res.status === 403) {
-                deleteToken()
+                localStorage.clear()
                 navigate('/login')
             }
         } catch (err) {

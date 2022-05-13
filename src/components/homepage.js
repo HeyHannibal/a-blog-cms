@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import uniqid from 'uniqid';
 import { Link, useNavigate } from "react-router-dom";
-import '../stylesheets/articleList.css'
 import DeleteIcon from '@mui/icons-material/Delete';
-import useToken from '../useToken'
+import '../stylesheets/articleList.css'
 
 export default function Homepage(props) {
 
-    const { token, setToken, deleteToken } = useToken()
     const [articles, setArticles] = useState(false)
 
     let navigate = useNavigate('/')
     useEffect(() => {
-        if (!token) {
+        if (!localStorage.getItem('token')) {
             navigate('/login')
         }
         if (!articles) {
@@ -29,16 +27,16 @@ export default function Homepage(props) {
             let res = await fetch(`http://localhost:3001/article/${e.currentTarget.parentNode.id}/`, {
                 method: 'DELETE',
                 headers: {
-                    authorization: `bearer ${token}`,
+                    authorization: `bearer ${localStorage.getItem('token')}`,
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
             })
             if (res.status === 200) {
-                window.location.reload()
-            } 
+
+            }
             if (res.status === 403) {
-                deleteToken()
+                localStorage.clear()
                 navigate('/login')
             }
         } catch (err) {
