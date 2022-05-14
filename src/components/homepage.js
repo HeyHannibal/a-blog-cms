@@ -14,7 +14,13 @@ export default function Homepage(props) {
             navigate('/login')
         }
         if (!articles) {
-            fetch('http://localhost:3001/article')
+            fetch('http://localhost:3001/article', {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('token')}`,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
                 .then(result => result.json())
                 .then(result => setArticles(JSON.parse(result)))
         }
@@ -23,8 +29,9 @@ export default function Homepage(props) {
     const db = {};
 
     db.delete = async (e) => {
+        const articleId = e.currentTarget.parentNode.id
         try {
-            let res = await fetch(`http://localhost:3001/article/${e.currentTarget.parentNode.id}/`, {
+            let res = await fetch(`http://localhost:3001/article/${articleId}/`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `bearer ${localStorage.getItem('token')}`,
@@ -33,7 +40,8 @@ export default function Homepage(props) {
                 },
             })
             if (res.status === 200) {
-
+                const updateArticles = [...articles].filter(article => article._id !== articleId)
+                setArticles(updateArticles)
             }
             if (res.status === 403) {
                 localStorage.clear()

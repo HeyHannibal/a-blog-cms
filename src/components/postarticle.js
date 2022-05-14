@@ -3,12 +3,20 @@ import { useNavigate } from "react-router-dom";
 
 export default function Post() {
 
-    const [inputTitle, setInputTitle] = useState('');
-    const [inputBody, setInputBody] = useState('');
-    const [error, setError] = useState('');
-    const TitleChange = (event) => setInputTitle(event.target.value)
-    const BodyChange = (event) => setInputBody(event.target.value)
+    const [articleForm, setForm] = useState({
+        title: '',
+        body: '',
+        published: true,
+    }) 
+    const [error, setError] = useState(false)
 
+    function formChange(event) {
+        console.log(articleForm);
+        setForm(prev => ({
+            ...prev,
+            [event.target.name] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
+        }))
+    }
     
     let navigate = useNavigate()
     useEffect(() => {
@@ -29,10 +37,7 @@ export default function Post() {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    title: inputTitle,
-                    body: inputBody,
-                }),
+                body: JSON.stringify(articleForm),
             })
             if (res.status === 200) {
                 navigate('/')
@@ -45,7 +50,7 @@ export default function Post() {
             }
 
         } catch (err) {
-            console.log('aaa');
+            console.log(err);
         }
     }
 
@@ -54,14 +59,15 @@ export default function Post() {
         <form onSubmit={post}>
             <label htmlFor='Title'>
                 Title
-                <input type='text' name='Title' value={inputTitle} onChange={TitleChange}></input>
+                <input type='text' name='title' value={articleForm.title} onChange={formChange}></input>
             </label>
             <label htmlFor='body'>
-
-                <textarea name='body' value={inputBody} onChange={BodyChange}></textarea>
+                
+                <textarea name='body' value={articleForm.body} onChange={formChange}></textarea>
             </label>
             <label>
-                <input type='checkbox' />
+                Published
+                <input name='published' type='checkbox' checked={articleForm.published} onChange={formChange}/>
             </label>
             <button type='submit'>Post </button>
             {error ? <p>error</p> : ''}

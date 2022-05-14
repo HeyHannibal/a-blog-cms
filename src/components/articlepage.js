@@ -15,7 +15,12 @@ export default function ArticlePage() {
         if (!localStorage.getItem('token')) {
             navigate('/login')
         }
-        fetch(`http://localhost:3001/article/${id}/`)
+        fetch(`http://localhost:3001/article/${id}/`,{
+        headers: {
+            authorization: `bearer ${localStorage.getItem('token')}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }})
             .then(result => result.json())
             .then(result => setArticle(result))
     }, [articleId])
@@ -26,6 +31,7 @@ export default function ArticlePage() {
             let res = await fetch(`http://localhost:3001/article/${id}/comment/${e.currentTarget.parentNode.id}`, {
                 method: 'delete',
                 headers: {
+                    authorization: `bearer ${localStorage.getItem('token')}`,
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 }
