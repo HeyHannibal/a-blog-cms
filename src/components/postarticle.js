@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-
+import '../stylesheets/form.css'
 export default function Post() {
 
     const [articleForm, setForm] = useState({
@@ -57,16 +57,16 @@ export default function Post() {
 
     return (
         <form onSubmit={post}>
-            <label htmlFor='Title'>
+            <label htmlFor='Title' >
                 Title
                 <input type='text' name='title' maxLength={80} value={articleForm.title} onChange={formChange} ></input>
             </label>
             <label htmlFor='body'>
-                
+                Article
                 <textarea name='body' value={articleForm.body} onChange={formChange}></textarea>
             </label>
-            <label>
-                Published
+            <label for='published' >
+                <p>Publish Now</p>
                 <input name='published' type='checkbox' checked={articleForm.published} onChange={formChange}/>
             </label>
             <button type='submit'>Post </button>

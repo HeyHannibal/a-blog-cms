@@ -6,7 +6,17 @@
     justify-content: center;
     align-items: center;
 }
+button{
+    height: 1.5rem;
+    text-transform: uppercase;
+    border: none;
+    background-color:#F1FAEE ;
+    border-radius: 5px;
+}
 
+.MuiSvgIcon-root {
+    color:#F1FAEE;
+}
 
 div#articleList {
     width: 100%;
@@ -14,21 +24,51 @@ div#articleList {
 }
 
 div.article {
+    padding: 1rem 1rem 1rem 0;
     width: 100%;
     word-wrap: break-word;
     overflow: wrap;
     text-align: start;
     flex-direction: column;
     display: flex;
-    align-items: flex-end;
-
+    border-bottom: 1px solid rgba(255, 255, 255, 0.171);
 }
 div.article a{
     font-size: 1.5rem;
+    width: fit-content;
+        font-family: 'Montserrat';
+        border-bottom: 1px solid white;
+}
+div.article p{
+    font-size: 1rem;
+
+}
+div.articleActions{
+    align-self: flex-end;
+    margin-top: auto;
+    padding: 1px;
+}
+div.actionDiv{
+    display: flex;
+    gap: 1rem;
+}
+div.completeAction{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgb(240, 178, 64);
+    font-weight: 600;
+}
+div.completeAction p{
+    margin: 0;
+    padding-top: 0;
+
 }
 
+div.completeAction button:hover {
+    background-color: #ffeabc;
 
-
+}
 @media only screen and (max-width: 768px) {
     #articleListContainer{
         max-width: 95vw;

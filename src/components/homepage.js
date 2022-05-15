@@ -93,10 +93,15 @@ export default function Homepage(props) {
     }
 
     function ActionWindow(props) {
+        function completeAction(e) {
+            props.func(e);
+            props.actionWindowOff();
+        }
+        console.log(props.func);
         return (
-            <div id={props.articleId}>
+            <div id={props.articleId} className={'completeAction'}>
                 <p>{`Click OK to ${props.name}`}</p>
-                <button onClick={props.func}>OK</button>
+                <button onClick={completeAction}>OK</button>
                 <button onClick={props.actionWindowOff}>Go Back</button>
             </div>
         )
@@ -117,11 +122,14 @@ export default function Homepage(props) {
             <div id='articleList'>
                 {articles ? articles.map((article, index) =>
                     <div key={uniqid()} className='article'><Link to={article.url}>{article.title}</Link>
+                        <p>{article.body.slice(0, 50)}...</p>
                         <div className='articleActions' id={article._id}>
+
                             {actionWindow.isOpen && actionWindow.id === article._id ?
                                 <ActionWindow articleId={article._id} name={actionWindow.action} func={db[actionWindow.action]} actionWindowOff={actionWindowOff} />
                                 :
-                                <div id={article._id}>
+
+                                <div id={article._id} className='actionDiv' >
                                     <button onClick={actionWindowToggle} data-action={'publish'}>{article.published ? 'Unpublish' : 'Publish'}</button>
                                     <DeleteIcon onClick={actionWindowToggle} data-action={'delete'} />
                                 </div>
