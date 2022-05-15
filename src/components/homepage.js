@@ -7,11 +7,14 @@ import '../stylesheets/articleList.css'
 export default function Homepage(props) {
 
     const [articles, setArticles] = useState(false)
+    const [actionWindow, setActionWindow] = useState({
+        isOpen: false,
+        id: ''
+    })
 
     let navigate = useNavigate('/')
-    
+
     useEffect(() => {
-        console.log('aa');
         if (!localStorage.getItem('token')) {
             navigate('/login')
         }
@@ -26,7 +29,7 @@ export default function Homepage(props) {
                 .then(result => result.json())
                 .then(result => setArticles(JSON.parse(result)))
         }
-    })
+    }, [actionWindow])
 
     const db = {};
 
@@ -65,6 +68,7 @@ export default function Homepage(props) {
 
 
     db.delete = async (e) => {
+
         const articleId = e.currentTarget.parentNode.id
         try {
             let res = await fetch(`http://localhost:3001/article/${articleId}/`, {
@@ -88,15 +92,41 @@ export default function Homepage(props) {
         }
     }
 
+    function ActionWindow(props) {
+        return (
+            <div id={props.articleId}>
+                <p>{`Click OK to ${props.name}`}</p>
+                <button onClick={props.func}>OK</button>
+                <button onClick={props.actionWindowOff}>Go Back</button>
+            </div>
+        )
+    }
+
+    const actionWindowToggle = (e) => {
+        setActionWindow({
+            action: e.currentTarget.dataset.action,
+            isOpen: true,
+            id: e.currentTarget.parentNode.id
+        })
+    }
+
+    const actionWindowOff = () => setActionWindow(false)
+
     return (
         <div id='articleListContainer'>
             <div id='articleList'>
-                {articles ? articles.map((article,index) =>
+                {articles ? articles.map((article, index) =>
                     <div key={uniqid()} className='article'><Link to={article.url}>{article.title}</Link>
                         <div className='articleActions' id={article._id}>
-                            <button id={article._id + '.pub'} onClick={db.publish}>{article.published ? 'Unpublish' : 'Publish'}</button>
-                            <DeleteIcon id={article._id + '.del'} onClick={db.delete} />
-                            
+                            {actionWindow.isOpen && actionWindow.id === article._id ?
+                                <ActionWindow articleId={article._id} name={actionWindow.action} func={db[actionWindow.action]} actionWindowOff={actionWindowOff} />
+                                :
+                                <div id={article._id}>
+                                    <button onClick={actionWindowToggle} data-action={'publish'}>{article.published ? 'Unpublish' : 'Publish'}</button>
+                                    <DeleteIcon onClick={actionWindowToggle} data-action={'delete'} />
+                                </div>
+
+                            }
                         </div>
                     </div>
                 ) :
