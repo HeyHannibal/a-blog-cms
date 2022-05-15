@@ -1,17 +1,36 @@
-#articleListContainer {
+#articleListContainer{
+    margin-top: 2.5rem;
+    max-width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+div#articleList {
     width: 100%;
+    padding: none;
 }
 
-ul {
-    overflow: wrap;
-    word-break: break-all;
-}
-
-li {
-    width: 50%;
+div.article {
+    width: 100%;
+    word-wrap: break-word;
     overflow: wrap;
     text-align: start;
+    flex-direction: column;
     display: flex;
     align-items: flex-end;
+
+}
+div.article a{
+    font-size: 1.5rem;
 }
 
+
+
+@media only screen and (max-width: 768px) {
+    #articleListContainer{
+        max-width: 95vw;
+    }
+}

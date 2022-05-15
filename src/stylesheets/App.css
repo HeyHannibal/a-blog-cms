@@ -1,1 +1,39 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+nav {
+    padding: 0rem 0;
+}
+
+h1 {
+    padding: 1rem 0;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5rem;
+    color: rgb(240, 178, 64);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+ul {
+    list-style: none;
+}
+
+.MuiSvgIcon-root {
+    color: rgb(233, 218, 187);
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+    text-decoration-line: underline;
+    font-weight: 700;
+}

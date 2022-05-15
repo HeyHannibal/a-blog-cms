@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>a-blog</h1>
+      <h1>The Blog</h1>
       <nav>
         <Link to='/'>Home</Link>
         {localStorage.getItem('token') ?

@@ -59,7 +59,7 @@ export default function Post() {
         <form onSubmit={post}>
             <label htmlFor='Title'>
                 Title
-                <input type='text' name='title' value={articleForm.title} onChange={formChange}></input>
+                <input type='text' name='title' maxLength={80} value={articleForm.title} onChange={formChange} ></input>
             </label>
             <label htmlFor='body'>
                 
