@@ -65,7 +65,7 @@ export default function Post() {
                 Article
                 <textarea name='body' value={articleForm.body} onChange={formChange}></textarea>
             </label>
-            <label for='published' >
+            <label for='published' className='checkbox' >
                 <p>Publish Now</p>
                 <input name='published' type='checkbox' checked={articleForm.published} onChange={formChange}/>
             </label>

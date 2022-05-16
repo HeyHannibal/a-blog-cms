@@ -1,0 +1,28 @@
+form.auth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+form p.err{
+    color: rgb(225, 97, 65);
+    margin: 0;
+    align-self: center;
+}
+label.auth{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    width: fit-content;
+}
+label.auth p {
+    margin: 0.5rem 0;
+}
+label.auth input{
+    font-family: 'Open Sans';
+    font-weight: 500;
+    padding: 0.5rem;
+    width: 100%;
+    height: 1rem;
+    border-radius: 2px;
+    background-color: rgb(239, 244, 255);
+}

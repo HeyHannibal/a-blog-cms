@@ -1,0 +1,39 @@
+#article {
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+}
+#articleContainer {
+  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+    flex-shrink: 6;
+}
+#articleContainer h1 {
+  padding: 0;
+  margin: 4rem 0 0 0;
+}
+#articleContainer p:first-of-type {
+  margin: 0rem 1rem;
+}
+#articleContainer p {
+  margin: 2rem 0;
+
+}
+@media only screen and (max-width: 768px) {
+    #articleContainer{
+        margin: 0.5rem;
+    }
+    #articleContainer h1 {
+        font-size: 1.5rem;
+        padding: 0;
+        margin: 4rem 0 0 0;
+      }
+      #articleContainer p {
+        font-size: 0.9rem;
+       
+      }
+  }
+  

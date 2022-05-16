@@ -3,9 +3,9 @@ body {
   font-family: 'Courier New', Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #22272e;
+  background-color: #233144 ;
   color: white;
   width: 100vw;
 
 }
-
+/* #22272e; */

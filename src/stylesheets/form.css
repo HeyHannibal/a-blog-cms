@@ -14,6 +14,7 @@ label{
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
+    font-family: 'Open Sans';
 
 }
 input{
@@ -25,22 +26,39 @@ input{
     font-weight: 600;
     font-size: 1.2rem;
     color: rgb(15, 15, 15);
+    padding: 0.8rem;
 }
 textarea{
     width: 100%;
-    height: 50vh;
+    min-height: 45vh;
     background-color: rgb(216, 224, 233);
     border: none;
     margin-top: 0.8rem;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Open Sans';
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
-label:last-of-type{
+label.checkbox{
     flex-direction: row;
     align-items: center;
-    gap: 1rem
+    gap: 1rem;
+    margin: 0;
 }
 label:last-of-type input{
 margin: 0;
+}
+form button{
+    height: 2rem;
+    width: 5rem;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: rgb(29, 29, 29);
+}
+form button:hover{
+    background-color: #ffeabc;
+
 }
 @media only screen and (max-width: 768px) {
     form{

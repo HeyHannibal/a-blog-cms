@@ -17,8 +17,11 @@ h1 {
     letter-spacing: .5rem;
     color: rgb(240, 178, 64);
 }
-
+p{
+    font-family: 'Open Sans';
+}
 a {
+    font-family: 'Open Sans';
     text-decoration: none;
     color: rgb(255, 255, 255);
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-
+import '../stylesheets/loginForm.css'
 
 export default function PostComment(props) {
     let navigate = useNavigate()
@@ -48,17 +48,17 @@ export default function PostComment(props) {
 
 
     return (
-        <form onSubmit={post}>
-            <label htmlFor='username'>
-                Username
-                <input type='text' name='username' value={inputUsername} onChange={usernameChange}></input>
+        <form onSubmit={post} className='auth'>
+            {showErr ? <p className={'err'}>Incorrect password or username</p> : ''}
+            <label htmlFor='username' className='auth'>
+                <p>Username</p>
+                <input type='text' name='username' className='auth' minLength={6} value={inputUsername} onChange={usernameChange}></input>
             </label>
-            <label htmlFor='password'>
-                Password
-                <input type='password' name='password' value={inputPassword} onChange={passwordChange}></input>
+            <label htmlFor='password' className='auth'>
+                <p>Password</p>
+                <input type='password' name='password' className='auth' minLength={6} value={inputPassword} onChange={passwordChange}></input>
             </label>
             <button type='submit'>Login</button>
-            {showErr ? <p>Incorrect password or username</p> : ''}
         </form>
     )
 }
