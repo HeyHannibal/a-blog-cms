@@ -26,7 +26,7 @@ export default function Homepage(props) {
         },
       })
         .then((result) => result.json())
-        .then((result) => setArticles(JSON.parse(result)));
+        .then((result) => setArticles(result));
     }
   }, [actionWindow]);
 
@@ -88,9 +88,7 @@ export default function Homepage(props) {
         localStorage.clear();
         navigate("/login");
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   function ActionWindow(props) {
@@ -98,7 +96,6 @@ export default function Homepage(props) {
       props.func(e);
       props.actionWindowOff();
     }
-    console.log(props.func);
     return (
       <div id={props.articleId} className={"completeAction"}>
         <p>{`Click OK to ${props.name}`}</p>

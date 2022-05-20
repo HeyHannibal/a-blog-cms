@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
-import '../stylesheets/articlePage.css'
+import "../stylesheets/articlePage.css";
 
 export default function ArticlePage() {
   const { id } = useParams();
@@ -21,7 +21,7 @@ export default function ArticlePage() {
       },
     })
       .then((result) => result.json())
-      .then((result) => setArticle(result));
+      .then((result) => {setArticle(result)});
   }, [articleId]);
 
   async function deleteComment(e) {
@@ -54,13 +54,11 @@ export default function ArticlePage() {
     <div>
       {article ? (
         <div id="article">
-            <div className="textResizer"></div>
           <div id="articleContainer">
-              <h1>{article.article.title}</h1>
-              <p>{article.article.date.split('T')[0]}</p>
-              <p>{article.article.body}</p>
+            <h1>{article.article.title}</h1>
+            <p>{article.article.date.split("T")[0]}</p>
+            <p>{article.article.body}</p>
           </div>
-          <div className="textResizer"></div>
           {article.comments.map((comment) => (
             <div id={comment._id}>
               <h5>{comment.username}</h5>
