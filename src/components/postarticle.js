@@ -30,7 +30,7 @@ export default function Post() {
     e.preventDefault();
 
     try {
-      let res = await fetch(`http://localhost:3001/article`, {
+      let res = await fetch(`https://le-bloggo.herokuapp.com/article`, {
         method: "POST",
         headers: {
           authorization: `bearer ${localStorage.getItem("token")}`,
@@ -53,12 +53,14 @@ export default function Post() {
   }
 
   return (
-    <form onSubmit={post}>
+    <form onSubmit={post} className='post'>
       <label htmlFor="Title">
         Title
         <input
           type="text"
           name="title"
+          className="post"
+
           maxLength={80}
           value={articleForm.title}
           onChange={formChange}
@@ -68,6 +70,8 @@ export default function Post() {
         Article
         <textarea
           name="body"
+          className="post"
+
           value={articleForm.body}
           onChange={formChange}
         ></textarea>
@@ -77,12 +81,13 @@ export default function Post() {
         <input
           name="published"
           type="checkbox"
+          className="post"
           checked={articleForm.published}
           onChange={formChange}
         />
       </label>
       <button type="submit">Post </button>
-      {error ? <p>error</p> : ""}
+      {error ? <p>An error has occured, please try again</p> : ""}
     </form>
   );
 }

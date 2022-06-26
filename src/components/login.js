@@ -7,7 +7,7 @@ export default function PostComment(props) {
 
   const [inputUsername, setInputUsername] = useState("");
   const [inputPassword, setInputPassword] = useState("");
-  const [showErr, setShowErr] = useState(false);
+  const [error, setError] = useState(false);
 
   const usernameChange = (event) => setInputUsername(event.target.value);
   const passwordChange = (event) => setInputPassword(event.target.value);
@@ -15,7 +15,7 @@ export default function PostComment(props) {
   async function post(e) {
     e.preventDefault();
     try {
-      let res = await fetch(`http://localhost:3001/auth/login/`, {
+      let res = await fetch(`https://le-bloggo.herokuapp.com/auth/login/`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -31,41 +31,51 @@ export default function PostComment(props) {
         localStorage.setItem("token", response.token);
         navigate("/");
         window.location.reload();
-        setShowErr(false);
+        setError(false);
       } else {
-        setShowErr(true);
+        setError(true);
       }
     } catch (err) {
       console.log(err);
     }
   }
 
+  const beMyGuest = () => {
+    setInputPassword("ffffff");
+    setInputUsername("ffffff");
+  };
+
   return (
     <form onSubmit={post} className="auth">
-      {showErr ? <p className={"err"}>Incorrect password or username</p> : ""}
+      {error ? <p className={"err"}>Incorrect password or username</p> : ""}
       <label htmlFor="username" className="auth">
-        <p>Username</p>
-        <input
-          type="text"
-          name="username"
-          className="auth"
-          minLength={6}
-          value={inputUsername}
-          onChange={usernameChange}
-        ></input>
+        Username
       </label>
+      <input
+        type="text"
+        name="username"
+        className="auth"
+        minLength={6}
+        value={inputUsername}
+        onChange={usernameChange}
+      ></input>
       <label htmlFor="password" className="auth">
-        <p>Password</p>
-        <input
-          type="password"
-          name="password"
-          className="auth"
-          minLength={6}
-          value={inputPassword}
-          onChange={passwordChange}
-        ></input>
+        Password
       </label>
-      <button type="submit">Login</button>
+      <input
+        type="password"
+        name="password"
+        className="auth"
+        minLength={6}
+        value={inputPassword}
+        onChange={passwordChange}
+      ></input>
+      <div id="submitAuth">
+        <button type="submit">Login</button>
+        <button type="submit" onClick={beMyGuest}>
+          Be my guest
+        </button>
+      </div>
     </form>
   );
 }

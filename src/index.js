@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import {
-  BrowserRouter,
   Routes,
   Route,
+  HashRouter
 } from "react-router-dom";
 import App from "./App";
 import ArticlePage from './components/articlepage';
@@ -16,17 +16,16 @@ const rootElement = document.getElementById("root");
 const root = createRoot(rootElement)
 
 root.render(
-  <BrowserRouter>
+  <HashRouter>
     <Routes>
       <Route path="/" element={<App />} >
         <Route index element={<Homepage />}/>
         <Route path="article/:id" element={<ArticlePage />} />
         <Route path="article" element={< ArticleCreate />}/>
-        <Route path="login" element={<Login />} />
-
+        <Route path="login" element={<Login/>} />
       </Route>
     </Routes>
-  </BrowserRouter>
+  </HashRouter>
   );
 
 

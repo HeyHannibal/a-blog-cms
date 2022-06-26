@@ -13,7 +13,7 @@ export default function ArticlePage() {
     if (!localStorage.getItem("token")) {
       navigate("/login");
     }
-    fetch(`http://localhost:3001/article/${id}/`, {
+    fetch(`https://le-bloggo.herokuapp.com/article/${id}/`, {
       headers: {
         authorization: `bearer ${localStorage.getItem("token")}`,
         Accept: "application/json",
@@ -28,7 +28,7 @@ export default function ArticlePage() {
     e.preventDefault();
     try {
       let res = await fetch(
-        `http://localhost:3001/article/${id}/comment/${e.currentTarget.parentNode.id}`,
+        `https://le-bloggo.herokuapp.com/article/${id}/comment/${e.currentTarget.parentNode.id}`,
         {
           method: "delete",
           headers: {

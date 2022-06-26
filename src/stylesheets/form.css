@@ -6,23 +6,21 @@ form{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
-label{
-    width: 100%;
+form.post label{
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
     font-family: 'Open Sans';
-
+    width: 100%;
 }
 input{
     margin-top: 0.8rem;
     background-color: rgb(216, 224, 233);
     border: none;
     height: 2rem;
-    font-family: 'Montserrat';
+    font-family: 'Open Sans';
     font-weight: 600;
     font-size: 1.2rem;
     color: rgb(15, 15, 15);
